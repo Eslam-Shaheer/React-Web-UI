@@ -15,7 +15,6 @@ const NewForm = () => {
   });
 
   const onSubmit = (data) => console.log(data);
-  console.log(errors);
   // const handleSumbit=(onSubmit)=>{
   //     const data={username:"Ahmed",password:"aasas"}
   //     onSubmit(data)
@@ -30,6 +29,7 @@ const NewForm = () => {
           {...register("username", {
             required: true,
             minLength: 10,
+            validate: (value) => value.includes("@"),
           })}
         />
         {errors.username && (

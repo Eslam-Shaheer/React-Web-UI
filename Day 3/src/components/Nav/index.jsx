@@ -1,8 +1,8 @@
 import { useForm } from "react-hook-form";
-import Link from "./Link";
+// import Link from "./Link";
 import styles from "./Nav.module.css";
 import { Navbar, Nav } from "react-bootstrap";
-
+import { NavLink } from "react-router-dom";
 export default function NavComponent() {
   const isAuthinticated = false;
 
@@ -16,15 +16,55 @@ export default function NavComponent() {
     return isAuth == false ? "Sign in" : "Profile";
   };
 
+  const routes = [
+    {
+      title: "Home",
+      href: "/",
+    },
+    {
+      title: "Products",
+      href: "/products",
+    },
+    {
+      title: "About",
+      href: "/about",
+    },
+    {
+      title: "Contact",
+      href: "/contact",
+    },
+    {
+      title: "Login",
+      href: "/login",
+    },
+    {
+      title: "Profile",
+      href: "/profile",
+    },
+  ];
+
   return (
     <Navbar bg="light" expand="lg">
       <Navbar.Brand href="#home">Navbar</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="mr-auto">
-          <Nav.Link href="/home">Home</Nav.Link>
-          <Nav.Link href="/link">Link</Nav.Link>
-          <Nav.Link href="/contact">Contact</Nav.Link>
+        <Nav className="mr-auto  gap-2">
+          {/* <a href={route.href}>{route.title}</a> */}
+          {routes.map((route) => (
+            <NavLink
+              key={route.href}
+              to={route.href}
+              className={({ isActive, isPending }) =>
+                isPending
+                  ? styles.navPending
+                  : isActive
+                  ? styles.navActive
+                  : styles.navItem
+              }
+            >
+              {route.title}
+            </NavLink>
+          ))}
 
           {/* {isAuthinticated == true ? (
             <Nav.Link href="/profile">Profile</Nav.Link>

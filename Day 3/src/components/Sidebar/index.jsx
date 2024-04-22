@@ -44,8 +44,8 @@ const Sidebar = () => {
 
   return (
     <div
-      className=" col-2"
       style={{ display: "flex", flexDirection: "column" }}
+      className="flex-fill"
     >
       <div className={`${styles.container}`}>
         <h2>{websiteName}</h2>
