@@ -20,5 +20,15 @@ const Layout = () => {
     </div>
   );
 };
-
 export default Layout;
+
+{
+  /* <CategoryContextProvider>
+<div className="col-2 d-flex flex-fill ">
+  <Sidebar />
+</div>
+<div className="col-10">
+  <CategoryProducts />
+</div>
+</CategoryContextProvider> */
+}

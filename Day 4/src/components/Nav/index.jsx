@@ -3,7 +3,12 @@ import { useForm } from "react-hook-form";
 import styles from "./Nav.module.css";
 import { Navbar, Nav } from "react-bootstrap";
 import { NavLink } from "react-router-dom";
+import { ThemeContext } from "../../contexts/ThemeContext";
+import { useContext } from "react";
+import Link from "./Link";
 export default function NavComponent() {
+  const { theme, setTheme } = useContext(ThemeContext);
+
   const isAuthinticated = false;
 
   const userType = "admin";
@@ -44,10 +49,11 @@ export default function NavComponent() {
   ];
 
   return (
-    <Navbar bg="light" expand="lg">
+    <Navbar bg="secondary" expand="lg">
       <Navbar.Brand href="#home">Navbar</Navbar.Brand>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
+        {/* <Link to={"/home"} title="Title" /> */}
         <Nav className="mr-auto  gap-2">
           {/* <a href={route.href}>{route.title}</a> */}
           {routes.map((route) => (
@@ -90,6 +96,19 @@ export default function NavComponent() {
             <Nav.Link href="/login">Dashboard</Nav.Link>
           ) : null} */}
         </Nav>
+        <div className="d-flex justify-content-end gap-2 w-100">
+          {["light", "dark"].map((item) => (
+            <span
+              className={`${styles.pointer} ${
+                theme == item ? styles.navActive : ""
+              }`}
+              key={item}
+              onClick={() => setTheme(item)}
+            >
+              {item}
+            </span>
+          ))}
+        </div>
       </Navbar.Collapse>
     </Navbar>
   );

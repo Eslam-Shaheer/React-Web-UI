@@ -1,8 +1,18 @@
-import Form from "react-bootstrap/Form";
-import profilePic from "../../assets/tappy2.png";
+import sum from "../../helpers/sum";
 import styles from "./Nav.module.css";
+import PropTypes from "prop-types";
 
+/**
+ *
+ * @param {string} title
+ * This is the title will be displayed between a tag
+ *
+ * @param {string} to
+ * This is the href the link will redirect to
+ */
 function Link({ title, to }) {
+  const sumValues = sum(2, 3);
+
   return (
     <a className={styles.bgColor} href={to}>
       {title}
@@ -23,3 +33,8 @@ function Link({ title, to }) {
   );
 }
 export default Link;
+
+Link.propTypes = {
+  title: PropTypes.string.isRequired,
+  to: PropTypes.string.isRequired,
+};

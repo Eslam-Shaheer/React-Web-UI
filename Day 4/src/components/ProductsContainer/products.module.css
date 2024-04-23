@@ -8,15 +8,3 @@
     height: 140px;
     width: 140px;
 }
-
-.card{
-    max-height: 390px;
-    overflow: hidden;
-    cursor: pointer;
-}
-.desc{
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-    white-space: nowrap;
-}

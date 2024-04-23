@@ -19,3 +19,10 @@ img{
 .list{
     list-style: none;
 }
+
+.listItem{
+    cursor: pointer;
+}
+.active{
+    color: blue;
+}

@@ -1,7 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./Sidebar.module.css";
 import { FaFacebookSquare } from "react-icons/fa";
-
+import axiosInstance from "../../axiosConfig/axiosInstance";
+import { Spinner } from "react-bootstrap";
+import { CategoryContext } from "../../contexts/CategoryContext";
 const websiteName = "Web & Ui Track";
 const categories = [
   { id: "1", label: "Pants" },
@@ -11,8 +13,13 @@ const categories = [
 ];
 
 const Sidebar = () => {
-  const [userName, setUserName] = useState("Eslam");
-  const [showLogo, setShowLogo] = useState(true);
+  const { selectedCategory, setSelectedCategory } = useContext(CategoryContext);
+
+  // const [userName, setUserName] = useState("Eslam");
+  // const [showLogo, setShowLogo] = useState(true);
+
+  const [categories, setCategories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
 
   useEffect(() => {
     // const changeNameTimout = setTimeout(() => {
@@ -22,32 +29,57 @@ const Sidebar = () => {
     //   setUserName(Date.now());
     // }, 3000);
 
+    const getData = async () => {
+      setIsLoading(true);
+      const response = await axiosInstance.get(`/products/categories`);
+      setCategories(response.data);
+      setIsLoading(false);
+    };
+    getData();
+
     return () => {
       //   clearTimeout(changeNameTimout);
       //   clearInterval(changeNameTimeout);
     };
   }, []);
 
-  useEffect(() => {
-    if (userName == "Ahmed") setShowLogo(false);
-  }, [userName]);
+  // useEffect(() => {
+  //   if (userName == "Ahmed") setShowLogo(false);
+  // }, [userName]);
 
-  const handleClick = () => {
-    setUserName("Mohamed");
-  };
+  // const handleClick = () => {
+  //   setUserName("Mohamed");
+  // };
 
-  const toggleLogo = () => {
-    setShowLogo((prev) => {
-      return prev ? false : true;
-    });
-  };
+  // const toggleLogo = () => {
+  //   setShowLogo((prev) => {
+  //     return prev ? false : true;
+  //   });
+  // };
 
   return (
     <div
       style={{ display: "flex", flexDirection: "column" }}
-      className="flex-fill"
+      className="flex-fill bg-light"
     >
-      <div className={`${styles.container}`}>
+      {isLoading ? (
+        <Spinner />
+      ) : (
+        <ul>
+          {categories.map((category) => (
+            <li
+              onClick={() => setSelectedCategory(category)}
+              key={category}
+              className={`${styles.listItem} ${
+                selectedCategory == category ? styles.active : ""
+              }`}
+            >
+              {category}
+            </li>
+          ))}
+        </ul>
+      )}
+      {/* <div className={`${styles.container}`}>
         <h2>{websiteName}</h2>
         <span>Name: {userName}</span>
         <button className="btn btn-secondary" onClick={handleClick}>
@@ -74,7 +106,7 @@ const Sidebar = () => {
             </li>
           ))}
         </ul>
-      </div>
+      </div> */}
     </div>
   );
 };
